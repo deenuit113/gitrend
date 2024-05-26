@@ -13,6 +13,7 @@
     "d3": "^7.9.0",
     "framer-motion": "^11.2.6",
     "next": "14.2.3",
+    "puppeteer": "^22.10.0",
     "react": "^18",
     "react-dom": "^18",
     "wordcloud": "^1.2.2"

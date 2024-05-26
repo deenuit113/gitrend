@@ -1,52 +1,60 @@
-import { useEffect, useState } from 'react';
-import { fetchTrendingRepos } from '../lib/github';
+import React from 'react';
 import WordCloud from '../components/WordCloud';
-import TrendChart from '../components/TrendChart';
-import { motion } from 'framer-motion';
-import styles from '../styles/Home.module.css';
 
-const Home = () => {
-  const [repos, setRepos] = useState([]);
-  const [words, setWords] = useState([]);
+const Header = () => (
+  <header>
+    <h1>Semacoral</h1>
+    <nav>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+);
 
-  useEffect(() => {
-    const loadData = async () => {
-      const trendingRepos = await fetchTrendingRepos();
-      setRepos(trendingRepos);
-      const wordData = trendingRepos.map(repo => ({ text: repo.name, value: repo.stargazers_count }));
-      setWords(wordData);
-    };
-    loadData();
-  }, []);
+const MainContent = () => (
+  <main>
+    {/* Main content area */}
+    <section id="features">
+      <h2>Features</h2>
+      {/* Feature content goes here */}
+    </section>
+    <section id="pricing">
+      <h2>Pricing</h2>
+      {/* Pricing content goes here */}
+    </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      {/* Contact form or information goes here */}
+    </section>
+    <section>
+      <h2>WordCloud</h2>
+      <WordCloud />
+    </section>
+  </main>
+);
 
-  return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <nav className={styles.nav}>
-          <div className={styles.logo}>GitHub Trends</div>
-          <ul className={styles.navLinks}>
-            <li><a href="#wordcloud">Word Cloud</a></li>
-            <li><a href="#trendchart">Trend Chart</a></li>
-          </ul>
-        </nav>
-      </header>
-      <main className={styles.main}>
-        <section id="wordcloud" className={styles.section}>
-          <motion.div
-            className={styles.wordCloud}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <WordCloud words={words} />
-          </motion.div>
-        </section>
-        <section id="trendchart" className={styles.section}>
-          <TrendChart data={repos} />
-        </section>
-      </main>
-    </div>
-  );
-};
+const Footer = () => (
+  <footer>
+    <p>&copy; 2024 Semacoral. All rights reserved.</p>
+    <nav>
+      <ul>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+      </ul>
+    </nav>
+  </footer>
+);
 
-export default Home;
+const HomePage = () => (
+  <div>
+    <Header />
+    <MainContent />
+    <Footer />
+  </div>
+);
+
+export default HomePage;

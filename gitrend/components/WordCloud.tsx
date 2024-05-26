@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Word {
   text: string;
-  value: number;
 }
 
 interface WordCloudProps {
@@ -10,34 +9,21 @@ interface WordCloudProps {
 }
 
 const WordCloud: React.FC<WordCloudProps> = ({ words }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [randomOrder, setRandomOrder] = useState<number[]>([]);
 
   useEffect(() => {
-    const loadWordCloud = async () => {
-      if (typeof window !== 'undefined') {
-        const wordcloud = (await import('wordcloud')).default;
-        const canvas = canvasRef.current;
-        if (canvas) {
-          const wordList = words.map(word => [word.text, word.value]);
+    // 1부터 50까지의 숫자를 무작위로 배열합니다.
+    const randomNumbers = Array.from({ length: 50 }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+    setRandomOrder(randomNumbers);
+  }, []);
 
-          wordcloud(canvas, {
-            list: wordList,
-            gridSize: Math.round(16 * window.devicePixelRatio),
-            weightFactor: 2,
-            fontFamily: 'Times, serif',
-            color: 'random-dark',
-            rotateRatio: 0.5,
-            rotationSteps: 2,
-            backgroundColor: '#f0f0f0',
-          });
-        }
-      }
-    };
-
-    loadWordCloud();
-  }, [words]);
-
-  return <canvas ref={canvasRef} width={800} height={400} />;
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+      {randomOrder.map((number, index) => (
+        <button key={index}>{number}</button>
+      ))}
+    </div>
+  );
 };
 
 export default WordCloud;
