@@ -3,7 +3,7 @@ import WordCloud from '../components/WordCloud';
 
 const Header = () => (
   <header>
-    <h1>Semacoral</h1>
+    <h1>zz</h1>
     <nav>
       <ul>
         <li><a href="#features">Features</a></li>
@@ -18,15 +18,15 @@ const MainContent = () => (
   <main>
     {/* Main content area */}
     <section id="features">
-      <h2>Features</h2>
+      <h2>메뉴 1</h2>
       {/* Feature content goes here */}
     </section>
     <section id="pricing">
-      <h2>Pricing</h2>
+      <h2>메뉴 1</h2>
       {/* Pricing content goes here */}
     </section>
     <section id="contact">
-      <h2>Contact</h2>
+      <h2>콘택트</h2>
       {/* Contact form or information goes here */}
     </section>
     <section>
