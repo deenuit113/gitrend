@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const TrendingButton = ({ name, type }) => {
+
+interface TrendingButtonProps {
+  name: string;
+  type: 'repo' | 'topic'; // 'repo' 또는 'topic' 중 하나로 타입 지정
+}
+
+const TrendingButton: React.FC<TrendingButtonProps> = ({ name, type }) => {
   // 클릭 이벤트 핸들러
   const handleClick = () => {
     let githubUrl = '';
@@ -20,7 +26,12 @@ const TrendingButton = ({ name, type }) => {
   );
 };
 
-const TrendingItems = ({ items, type }) => {
+interface TrendingItemsProps {
+  items: string[]; // items 배열의 요소들은 문자열로 이루어져 있다고 가정
+  type: 'repo' | 'topic'; // 'repo' 또는 'topic' 중 하나로 타입 지정
+}
+
+const TrendingItems: React.FC<TrendingItemsProps> = ({ items, type }) => {
   return (
     <div>
       {items.map((item, index) => (
@@ -33,8 +44,10 @@ const TrendingItems = ({ items, type }) => {
 const TrendingPage = () => {
   // GitHub API로부터 트렌딩 레포지토리와 토픽 가져오기
   const [trendingRepos, setTrendingRepos] = useState([]);
-  const [trendingFETopics, setTrendingFETopics] = useState([]);
-  const [trendingBETopics, setTrendingBETopics] = useState([]);
+  const [trendingLanguageTopics, setTrendingLanguageTopics] = useState([]);
+  const [trendingFrameworkTopics, setTrendingFrameworkTopics] = useState([]);
+  const [trendingLibraryTopics, setTrendingLibraryTopics] = useState([]);
+  const [trendingAlgoTopics, setTrendingAlgoTopics] = useState([]);
 
   useEffect(() => {
     const fetchTrendingData = async () => {
@@ -48,19 +61,29 @@ const TrendingPage = () => {
         // GitHub API로부터 트렌딩 레포지토리 가져오기
         const repoResponse = await fetch(`https://api.github.com/search/repositories?q=created:>${formattedDate}&sort=stars&order=desc`);
         const repoData = await repoResponse.json();
-        const repoNames = repoData.items.map(item => item.full_name);
+        const repoNames = repoData.items.map((item: any) => item.full_name);
         setTrendingRepos(repoNames);
 
         // GitHub API로부터 트렌딩 토픽 가져오기
-        const FEtopicResponse = await fetch('https://api.github.com/search/topics?q=frontend');
-        const FEtopicData = await FEtopicResponse.json();
-        const FEtopicNames = FEtopicData.items.map(item => item.name);
-        setTrendingFETopics(FEtopicNames);
+        const LanguageTopicResponse = await fetch('https://api.github.com/search/topics?q=language');
+        const LanguageTopicData = await LanguageTopicResponse.json();
+        const LanguageTopicNames = LanguageTopicData.items.map((item: any) => item.name);
+        setTrendingLanguageTopics(LanguageTopicNames);
 
-        const BEtopicResponse = await fetch('https://api.github.com/search/topics?q=backend');
-        const BEtopicData = await BEtopicResponse.json();
-        const BEtopicNames = BEtopicData.items.map(item => item.name);
-        setTrendingBETopics(BEtopicNames);
+        const FrameworkTopicResponse = await fetch('https://api.github.com/search/topics?q=framework');
+        const FrameworkTopicData = await FrameworkTopicResponse.json();
+        const FrameworkTopicNames = FrameworkTopicData.items.map((item: any) => item.name);
+        setTrendingFrameworkTopics(FrameworkTopicNames);
+
+        const LibraryTopicResponse = await fetch('https://api.github.com/search/topics?q=library');
+        const LibraryTopicData = await LibraryTopicResponse.json();
+        const LibraryTopicNames = LibraryTopicData.items.map((item: any) => item.name);
+        setTrendingLibraryTopics(LibraryTopicNames);
+
+        const AlgotopicResponse = await fetch('https://api.github.com/search/topics?q=algorithm');
+        const AlgotopicData = await AlgotopicResponse.json();
+        const AlgotopicNames = AlgotopicData.items.map((item: any) => item.name);
+        setTrendingAlgoTopics(AlgotopicNames);
 
       } catch (error) {
         console.error('Error fetching trending data:', error);
@@ -74,10 +97,14 @@ const TrendingPage = () => {
     <div>
       <h1>Trending Repositories</h1>
       <TrendingItems items={trendingRepos} type="repo" />
-      <h1>Trending Frontend Topics</h1>
-      <TrendingItems items={trendingFETopics} type="topic" />
-      <h1>Trending Backend Topics</h1>
-      <TrendingItems items={trendingBETopics} type="topic" />
+      <h1>Trending Language</h1>
+      <TrendingItems items={trendingLanguageTopics} type="topic" />
+      <h1>Trending Framework</h1>
+      <TrendingItems items={trendingFrameworkTopics} type="topic" />
+      <h1>Trending Library</h1>
+      <TrendingItems items={trendingLibraryTopics} type="topic" />
+      <h1>Trending Algorithm</h1>
+      <TrendingItems items={trendingAlgoTopics} type="topic" />
     </div>
   );
 };
