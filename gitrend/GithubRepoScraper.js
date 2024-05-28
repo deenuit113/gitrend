@@ -36,4 +36,6 @@ const cheerio = require('cheerio');
     console.log(RepoNameList);
 
     browser.close();
+
+    module.exports = RepoNameList;
 })();

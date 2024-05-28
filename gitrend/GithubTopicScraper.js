@@ -35,9 +35,8 @@ const cheerio = require('cheerio');
 
   console.log(TopicNameList);
 
-  module.exports = TopicNameList;
-
   browser.close();
   
+  module.exports = TopicNameList;
 })();
 

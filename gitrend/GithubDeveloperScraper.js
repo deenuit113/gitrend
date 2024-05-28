@@ -34,6 +34,9 @@ const cheerio = require('cheerio');
 
     // href 속성들을 출력한다.
     console.log(DeveloperNameList);
+
     browser.close();
+
+    module.exports = DeveloperNameList;
 
 })();
