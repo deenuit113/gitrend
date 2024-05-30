@@ -1,24 +1,58 @@
+import React, { useRef, useEffect } from 'react';
+
 interface TrendingButtonProps {
     name: string;
-    type: 'repo' | 'topic'; // 'repo' 또는 'topic' 중 하나로 타입 지정
+    type: 'repo' | 'topic';
+    isFirst: boolean;
+    isLast: boolean;
+    onNextFocus: () => void;
 }
 
-export default function TrendingButton(props: TrendingButtonProps): JSX.Element {
-    // 클릭 이벤트 핸들러
+export default function TrendingButton({ name, type, isFirst, isLast, onNextFocus }: TrendingButtonProps): JSX.Element {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        if (isFirst) {
+            buttonRef.current?.focus();
+        }
+    }, [isFirst]);
+
     const handleClick = () => {
         let githubUrl = '';
-        if (props.type === 'repo') {
-            // 해당 레포지토리에 대한 GitHub 페이지 URL
+        if (type === 'repo') {
             githubUrl = `https://github.com/${name}`;
-        } else if (props.type === 'topic') {
-            // 해당 토픽에 대한 GitHub 페이지 URL
+        } else if (type === 'topic') {
             githubUrl = `https://github.com/topics/${name}`;
         }
-        // 새 탭에서 GitHub 페이지 열기
         window.open(githubUrl, '_blank');
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (buttonRef.current && buttonRef.current.nextElementSibling) {
+                (buttonRef.current.nextElementSibling as HTMLElement).focus();
+            } else {
+                onNextFocus(); // 다음 포커스로 이동
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (buttonRef.current && buttonRef.current.previousElementSibling) {
+                (buttonRef.current.previousElementSibling as HTMLElement).focus();
+            } else {
+                onNextFocus(); // 다음 포커스로 이동
+            }
+        }
+    };
+
     return (
-        <button onClick={handleClick}>{props.name}</button>
+        <button
+            ref={buttonRef}
+            onClick={handleClick}
+            onKeyDown={handleKeyDown}
+            id={isLast ? 'trending-repositories-button' : ''}
+        >
+            {name}
+        </button>
     );
-};
+}
