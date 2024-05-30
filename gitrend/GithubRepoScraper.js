@@ -1,44 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import puppeteer from 'puppeteer';
-import cheerio from 'cheerio';
+// puppeteer을 가져온다.
+const puppeteer = require('puppeteer');
+const cheerio = require('cheerio');
 
-const RepoNameList: React.FC = () => {
-  const [repoNames, setRepoNames] = useState<string[]>([]);
+(async() => {
+  // 브라우저를 실행한다.
+  // 옵션으로 headless모드를 끌 수 있다.
+  const browser = await puppeteer.launch({
+    headless: false
+  });
 
-  useEffect(() => {
-    const fetchRepoNames = async () => {
-      const browser = await puppeteer.launch({ headless: false });
-      const page = await browser.newPage();
-      await page.setViewport({ width: 1366, height: 768 });
-      await page.goto('https://github.com/trending');
+  // 새로운 페이지를 연다.
+  const page = await browser.newPage();
+  // 페이지의 크기를 설정한다.
+  await page.setViewport({
+    width: 1366,
+    height: 768
+  });
+  // "https://www.goodchoice.kr/product/search/2" URL에 접속한다. (여기어때 호텔 페이지)
+  await page.goto('https://github.com/trending');
 
-      const content = await page.content();
-      const $ = cheerio.load(content);
-      const articles = $('body > div.logged-out.env-production.page-responsive > div.application-main > main > div.position-relative.container-lg.p-responsive.pt-6 > div > div:nth-child(2) article');
+  const content = await page.content();
+  // $에 cheerio를 로드한다.
+  const $ = cheerio.load(content);
+  // 복사한 리스트의 Selector로 리스트를 모두 가져온다.
+  const articles = $('body > div.logged-out.env-production.page-responsive > div.application-main > main > div.position-relative.container-lg.p-responsive.pt-6 > div > div:nth-child(2) article');
 
-      const names: string[] = [];
-      articles.each((index, article) => {
+    // 각 article 태그 안의 a 태그의 href 속성을 가져와서 리스트에 추가한다.
+    const RepoNameList = [];
+    articles.each((index, article) => {
         const articleHrefs = $(article).find('h2 a').map((i, a) => $(a).attr('href')).get();
-        names.push(...articleHrefs);
-      });
+        RepoNameList.push(...articleHrefs);
+    });
 
-      setRepoNames(names);
-      browser.close();
-    };
+    // href 속성들을 출력한다.
+    console.log(RepoNameList);
 
-    fetchRepoNames();
-  }, []);
+    browser.close();
 
-  return (
-    <div>
-      <h2>Repositories</h2>
-      <ul>
-        {repoNames.map((name, index) => (
-          <li key={index}>{name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default RepoNameList;
+    module.exports = RepoNameList;
+})();
