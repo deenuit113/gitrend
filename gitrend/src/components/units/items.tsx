@@ -4,10 +4,9 @@ import TrendingButton from './button';
 interface TrendingItemsProps {
     items: string[];
     type: 'repo' | 'topic';
-    onNextFocus: () => void;
 }
 
-export default function TrendingItems({ items, type, onNextFocus }: TrendingItemsProps): JSX.Element {
+export default function TrendingItems({ items, type }: TrendingItemsProps): JSX.Element {
     return (
         <div>
             {items.map((item, index) => (
@@ -17,7 +16,6 @@ export default function TrendingItems({ items, type, onNextFocus }: TrendingItem
                     type={type}
                     isFirst={index === 0}
                     isLast={index === items.length - 1}
-                    onNextFocus={onNextFocus}
                 />
             ))}
         </div>

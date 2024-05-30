@@ -5,10 +5,9 @@ interface TrendingButtonProps {
     type: 'repo' | 'topic';
     isFirst: boolean;
     isLast: boolean;
-    onNextFocus: () => void;
 }
 
-export default function TrendingButton({ name, type, isFirst, isLast, onNextFocus }: TrendingButtonProps): JSX.Element {
+export default function TrendingButton({ name, type, isFirst, isLast}: TrendingButtonProps): JSX.Element {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
@@ -32,15 +31,11 @@ export default function TrendingButton({ name, type, isFirst, isLast, onNextFocu
             e.preventDefault();
             if (buttonRef.current && buttonRef.current.nextElementSibling) {
                 (buttonRef.current.nextElementSibling as HTMLElement).focus();
-            } else {
-                onNextFocus(); // 다음 포커스로 이동
             }
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
             e.preventDefault();
             if (buttonRef.current && buttonRef.current.previousElementSibling) {
                 (buttonRef.current.previousElementSibling as HTMLElement).focus();
-            } else {
-                onNextFocus(); // 다음 포커스로 이동
             }
         }
     };

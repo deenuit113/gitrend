@@ -49,25 +49,14 @@ export default function TrendingPage(): JSX.Element {
         fetchTrendingData();
     }, []);
 
-    const handleNextFocus = () => {
-        const trendingRepositoriesButton = document.querySelector('#trending-repositories-button') as HTMLButtonElement;
-        if (trendingRepositoriesButton) {
-            trendingRepositoriesButton.focus();
-        }
-    };
-
     return (
         <div>
-            <h1>Trending Repositories - 7 days</h1>
-            <TrendingItems items={trendingRepos} type="repo" onNextFocus={handleNextFocus} />
-            <h1>Trending Language</h1>
-            <TrendingItems items={trendingLanguageTopics} type="topic" onNextFocus={handleNextFocus} />
-            <h1>Trending Framework</h1>
-            <TrendingItems items={trendingFrameworkTopics} type="topic" onNextFocus={handleNextFocus} />
-            <h1>Trending Library</h1>
-            <TrendingItems items={trendingLibraryTopics} type="topic" onNextFocus={handleNextFocus} />
-            <h1>Trending Algorithm</h1>
-            <TrendingItems items={trendingAlgoTopics} type="topic" onNextFocus={handleNextFocus} />
+            <h1>Trending Topics</h1>
+            <TrendingItems items={trendingRepos} type="repo"/>
+            <TrendingItems items={trendingLanguageTopics} type="topic" />
+            <TrendingItems items={trendingFrameworkTopics} type="topic" />
+            <TrendingItems items={trendingLibraryTopics} type="topic" />
+            <TrendingItems items={trendingAlgoTopics} type="topic" />
         </div>
     );
 }
