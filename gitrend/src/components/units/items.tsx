@@ -20,19 +20,25 @@ export default function TrendingItems({ items }: TrendingItemsProps): JSX.Elemen
 
     return (
         <div>
-            {items.map((item, index) => (
-                <TrendingButton
-                    key={index}
-                    name={item.name}
-                    type={item.type}
-                    isFirst={index === 0}
-                    isLast={index === items.length - 1}
-                    isActive={index === currentIndex}
-                    setCurrentIndex={updateIndex}
-                    index={index}
-                    itemsLength={items.length}
-                />
-            ))}
+            {items.map((item, index) => {
+                const isActive = index === currentIndex;
+                const isNeighbor1 = index === (currentIndex + 1) % items.length || index === (currentIndex - 1 + items.length) % items.length;
+                const isNeighbor2 = index === (currentIndex + 2) % items.length || index === (currentIndex - 2 + items.length) % items.length;
+
+                return (
+                    <TrendingButton
+                        key={index}
+                        name={item.name}
+                        type={item.type}
+                        isActive={isActive}
+                        isNeighbor1={isNeighbor1}
+                        isNeighbor2={isNeighbor2}
+                        setCurrentIndex={updateIndex}
+                        index={index}
+                        itemsLength={items.length}
+                    />
+                );
+            })}
         </div>
     );
 }
