@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TrendingItems from './items';
 
 export default function TrendingPage(): JSX.Element {
-    const [trendingRepos, setTrendingRepos] = useState([]);
-    const [trendingLanguageTopics, setTrendingLanguageTopics] = useState([]);
-    const [trendingFrameworkTopics, setTrendingFrameworkTopics] = useState([]);
-    const [trendingLibraryTopics, setTrendingLibraryTopics] = useState([]);
-    const [trendingAlgoTopics, setTrendingAlgoTopics] = useState([]);
+    const [trendingItems, setTrendingItems] = useState<{ name: string, type: 'repo' | 'topic' }[]>([]);
 
     useEffect(() => {
         const fetchTrendingData = async () => {
@@ -18,28 +14,31 @@ export default function TrendingPage(): JSX.Element {
 
                 const repoResponse = await fetch(`https://api.github.com/search/repositories?q=created:>${formattedDate}&sort=stars&order=desc`);
                 const repoData = await repoResponse.json();
-                const repoNames = repoData.items.map((item: any) => item.full_name);
-                setTrendingRepos(repoNames);
+                const repoItems = repoData.items.map((item: any) => ({ name: item.full_name, type: 'repo' as const }));
 
                 const languageTopicResponse = await fetch('https://api.github.com/search/topics?q=language');
                 const languageTopicData = await languageTopicResponse.json();
-                const languageTopicNames = languageTopicData.items.map((item: any) => item.name);
-                setTrendingLanguageTopics(languageTopicNames);
+                const languageTopicItems = languageTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
 
                 const frameworkTopicResponse = await fetch('https://api.github.com/search/topics?q=framework');
                 const frameworkTopicData = await frameworkTopicResponse.json();
-                const frameworkTopicNames = frameworkTopicData.items.map((item: any) => item.name);
-                setTrendingFrameworkTopics(frameworkTopicNames);
+                const frameworkTopicItems = frameworkTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
 
                 const libraryTopicResponse = await fetch('https://api.github.com/search/topics?q=library');
                 const libraryTopicData = await libraryTopicResponse.json();
-                const libraryTopicNames = libraryTopicData.items.map((item: any) => item.name);
-                setTrendingLibraryTopics(libraryTopicNames);
+                const libraryTopicItems = libraryTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
 
                 const algoTopicResponse = await fetch('https://api.github.com/search/topics?q=algorithm');
                 const algoTopicData = await algoTopicResponse.json();
-                const algoTopicNames = algoTopicData.items.map((item: any) => item.name);
-                setTrendingAlgoTopics(algoTopicNames);
+                const algoTopicItems = algoTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
+
+                setTrendingItems([
+                    ...repoItems,
+                    ...languageTopicItems,
+                    ...frameworkTopicItems,
+                    ...libraryTopicItems,
+                    ...algoTopicItems
+                ]);
 
             } catch (error) {
                 console.error('Error fetching trending data:', error);
@@ -52,11 +51,7 @@ export default function TrendingPage(): JSX.Element {
     return (
         <div>
             <h1>Trending Topics</h1>
-            <TrendingItems items={trendingRepos} type="repo"/>
-            <TrendingItems items={trendingLanguageTopics} type="topic" />
-            <TrendingItems items={trendingFrameworkTopics} type="topic" />
-            <TrendingItems items={trendingLibraryTopics} type="topic" />
-            <TrendingItems items={trendingAlgoTopics} type="topic" />
+            <TrendingItems items={trendingItems} />
         </div>
     );
 }

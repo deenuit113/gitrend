@@ -5,16 +5,20 @@ interface TrendingButtonProps {
     type: 'repo' | 'topic';
     isFirst: boolean;
     isLast: boolean;
+    isActive: boolean;
+    setCurrentIndex: (index: number) => void;
+    index: number;
+    itemsLength: number;
 }
 
-export default function TrendingButton({ name, type, isFirst, isLast}: TrendingButtonProps): JSX.Element {
+export default function TrendingButton({ name, type, isFirst, isLast, isActive, setCurrentIndex, index, itemsLength }: TrendingButtonProps): JSX.Element {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
-        if (isFirst) {
+        if (isActive) {
             buttonRef.current?.focus();
         }
-    }, [isFirst]);
+    }, [isActive]);
 
     const handleClick = () => {
         let githubUrl = '';
@@ -29,14 +33,10 @@ export default function TrendingButton({ name, type, isFirst, isLast}: TrendingB
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
             e.preventDefault();
-            if (buttonRef.current && buttonRef.current.nextElementSibling) {
-                (buttonRef.current.nextElementSibling as HTMLElement).focus();
-            }
+            setCurrentIndex(isLast ? 0 : index + 1);
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
             e.preventDefault();
-            if (buttonRef.current && buttonRef.current.previousElementSibling) {
-                (buttonRef.current.previousElementSibling as HTMLElement).focus();
-            }
+            setCurrentIndex(isFirst ? itemsLength - 1 : index - 1);
         }
     };
 
@@ -45,7 +45,7 @@ export default function TrendingButton({ name, type, isFirst, isLast}: TrendingB
             ref={buttonRef}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
-            id={isLast ? 'trending-repositories-button' : ''}
+            style={{ border: isActive ? '2px solid red' : 'none' }}
         >
             {name}
         </button>
