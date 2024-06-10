@@ -1,18 +1,29 @@
 import React, { useRef, useEffect } from 'react';
-import * as S from "./button.styles"
+import * as S from './button.styles';
 
 interface TrendingButtonProps {
     name: string;
     type: 'repo' | 'topic';
     isActive: boolean;
-    isNeighbor1: boolean;
-    isNeighbor2: boolean;
-    setCurrentIndex: (index: number) => void;
-    index: number;
-    itemsLength: number;
+    neighborLevel: number;
+    setCurrentIndex: (rowIndex: number, colIndex: number) => void;
+    rowIndex: number;
+    colIndex: number;
+    rowsLength: number;
+    colsLength: number;
 }
 
-export default function TrendingButton({ name, type, isActive, isNeighbor1, isNeighbor2, setCurrentIndex, index, itemsLength }: TrendingButtonProps): JSX.Element {
+export default function TrendingButton({
+    name,
+    type,
+    isActive,
+    neighborLevel,
+    setCurrentIndex,
+    rowIndex,
+    colIndex,
+    rowsLength,
+    colsLength,
+}: TrendingButtonProps): JSX.Element {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
@@ -32,20 +43,25 @@ export default function TrendingButton({ name, type, isActive, isNeighbor1, isNe
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        if (e.key === 'ArrowRight') {
             e.preventDefault();
-            setCurrentIndex(index === itemsLength - 1 ? 0 : index + 1);
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            setCurrentIndex(rowIndex, (colIndex + 1) % colsLength);
+        } else if (e.key === 'ArrowLeft') {
             e.preventDefault();
-            setCurrentIndex(index === 0 ? itemsLength - 1 : index - 1);
+            setCurrentIndex(rowIndex, (colIndex - 1 + colsLength) % colsLength);
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setCurrentIndex((rowIndex + 1) % rowsLength, colIndex);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setCurrentIndex((rowIndex - 1 + rowsLength) % rowsLength, colIndex);
         }
     };
 
     return (
         <S.TrendingButton
             isActive={isActive}
-            isNeighbor1={isNeighbor1}
-            isNeighbor2={isNeighbor2}
+            neighborLevel={neighborLevel}
             ref={buttonRef}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
