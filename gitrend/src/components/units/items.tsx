@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TrendingButton from './button';
+import * as S from './items.styles';
 
 interface TrendingItemsProps {
     items: { name: string, type: 'repo' | 'topic' }[];
@@ -8,6 +9,19 @@ interface TrendingItemsProps {
 export default function TrendingItems({ items }: TrendingItemsProps): JSX.Element {
     const [currentRowIndex, setCurrentRowIndex] = useState(0);
     const [currentColIndex, setCurrentColIndex] = useState(0);
+    const [speechEnabled, setSpeechEnabled] = useState(true);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'm') {
+                setSpeechEnabled(prev => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     const updateIndex = (newRowIndex: number, newColIndex: number) => {
         setCurrentRowIndex(newRowIndex);
@@ -30,6 +44,9 @@ export default function TrendingItems({ items }: TrendingItemsProps): JSX.Elemen
 
     return (
         <div>
+            <S.ToggleSpeechButton onClick={() => setSpeechEnabled(prev => !prev)}>
+                {speechEnabled ? 'Disable Speech' : 'Enable Speech'}
+            </S.ToggleSpeechButton>
             {rows.map((row, rowIndex) => (
                 <div key={rowIndex} style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
                     {row.map((item, colIndex) => {
@@ -48,6 +65,7 @@ export default function TrendingItems({ items }: TrendingItemsProps): JSX.Elemen
                                 colIndex={colIndex}
                                 rowsLength={rows.length}
                                 colsLength={row.length}
+                                speechEnabled={speechEnabled}
                             />
                         );
                     })}

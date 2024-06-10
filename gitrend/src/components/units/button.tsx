@@ -11,7 +11,10 @@ interface TrendingButtonProps {
     colIndex: number;
     rowsLength: number;
     colsLength: number;
+    speechEnabled: boolean;
 }
+
+let speechTimeout: NodeJS.Timeout;
 
 export default function TrendingButton({
     name,
@@ -23,15 +26,19 @@ export default function TrendingButton({
     colIndex,
     rowsLength,
     colsLength,
+    speechEnabled,
 }: TrendingButtonProps): JSX.Element {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         if (isActive) {
             buttonRef.current?.focus();
-            speak(name); // Focus된 버튼의 텍스트를 음성으로 읽음
+            if (speechEnabled) {
+                clearTimeout(speechTimeout);
+                speechTimeout = setTimeout(() => speak(name), 500); // 0.5초 딜레이
+            }
         }
-    }, [isActive, name]);
+    }, [isActive, name, speechEnabled]);
 
     const handleClick = () => {
         let githubUrl = '';
