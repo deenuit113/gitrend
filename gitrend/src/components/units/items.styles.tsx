@@ -6,18 +6,10 @@ export const Row = styled.div`
     margin-bottom: 10px;
 `;
 
-export const ToggleSpeechButton = styled.button`
+export const ToggleContainer = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #0056b3;
-    }
+    display: flex;
+    align-items: center;
 `;

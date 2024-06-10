@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import TrendingButton from './button';
 import * as S from './items.styles';
+import Switch from 'react-switch';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 
 interface TrendingItemsProps {
     items: { name: string, type: 'repo' | 'topic' }[];
@@ -44,9 +47,19 @@ export default function TrendingItems({ items }: TrendingItemsProps): JSX.Elemen
 
     return (
         <div>
-            <S.ToggleSpeechButton onClick={() => setSpeechEnabled(prev => !prev)}>
-                {speechEnabled ? 'Disable Speech' : 'Enable Speech'}
-            </S.ToggleSpeechButton>
+            <S.ToggleContainer>
+                <Switch
+                    onChange={() => setSpeechEnabled(prev => !prev)}
+                    checked={speechEnabled}
+                    offColor="#888"
+                    onColor="#0d6efd"
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    height={20}
+                    width={40}
+                />
+                <FontAwesomeIcon icon={faBullhorn} style={{ marginLeft: '10px', color: speechEnabled ? '#0d6efd' : '#888' }} />
+            </S.ToggleContainer>
             {rows.map((row, rowIndex) => (
                 <div key={rowIndex} style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
                     {row.map((item, colIndex) => {
