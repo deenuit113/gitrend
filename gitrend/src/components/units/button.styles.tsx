@@ -28,17 +28,18 @@ const getFontColor = (neighborLevel: number) => {
 
 export const TrendingButton = styled.button<{ isActive: boolean; neighborLevel: number }>`
     margin: 5px;
-    padding: 10px;
+    padding: 3px 5px 3px 5px;
     border: none;
     background-color: ${({ neighborLevel }) => getBackgroundColor(neighborLevel)};
     color: white;
     cursor: pointer;
     outline: ${({ isActive }) => (isActive ? '2px solid lightgray' : 'none')};
-    flex: 1 0 60px;
-    max-width: 120px;
-    height: 100px;
+    flex: 1 0 40px;
+    max-width: 130px;
+    height: 110px;
     text-align: center;
-    font-size: 20px;
+    font-size: 25px;
     color: ${({ neighborLevel }) => getFontColor(neighborLevel)};
     border-radius: 10px;
+    word-wrap: break-word; /* or overflow-wrap: break-word; */
 `;
