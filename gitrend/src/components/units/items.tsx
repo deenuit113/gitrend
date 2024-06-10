@@ -55,8 +55,8 @@ export default function TrendingItems({ items }: TrendingItemsProps): JSX.Elemen
                     onColor="#0d6efd"
                     uncheckedIcon={false}
                     checkedIcon={false}
-                    height={20}
-                    width={40}
+                    height={30}
+                    width={50}
                 />
                 <FontAwesomeIcon icon={faBullhorn} style={{ marginLeft: '10px', color: speechEnabled ? '#0d6efd' : '#888' }} />
             </S.ToggleContainer>
