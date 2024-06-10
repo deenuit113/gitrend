@@ -49,7 +49,7 @@ export default function TrendingPage(): JSX.Element {
     }, []);
 
     return (
-        <div>
+        <div aria-label="github trending topics">
             <h1>Trending Topics</h1>
             <TrendingItems items={trendingItems} />
         </div>
