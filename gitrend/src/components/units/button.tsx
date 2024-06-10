@@ -29,8 +29,9 @@ export default function TrendingButton({
     useEffect(() => {
         if (isActive) {
             buttonRef.current?.focus();
+            speak(name); // Focus된 버튼의 텍스트를 음성으로 읽음
         }
-    }, [isActive]);
+    }, [isActive, name]);
 
     const handleClick = () => {
         let githubUrl = '';
@@ -56,6 +57,11 @@ export default function TrendingButton({
             e.preventDefault();
             setCurrentIndex((rowIndex - 1 + rowsLength) % rowsLength, colIndex);
         }
+    };
+
+    const speak = (text: string) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
     };
 
     return (
