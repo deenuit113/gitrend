@@ -63,16 +63,17 @@ export const FocusedTextContainer = styled.div<{ visible: boolean }>`
     pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
     position: absolute;
     bottom: 0;
+    z-index: 1;
 `;
 
 export const FocusedText = styled.div`
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bolder;
     color: #333;
     text-align: center;
 `;
 
-export const ToggleMessage = styled.div`
+export const ToggleMessage = styled.div<{ visible: boolean }>`
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -85,5 +86,8 @@ export const ToggleMessage = styled.div`
     font-size: 1.2em;
     font-weight: bold;
     text-align: center;
-    transition: opacity 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: ${({ visible }) => (visible ? '1' : '0')};
+    pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
+    z-index: 0;
 `;

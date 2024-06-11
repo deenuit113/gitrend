@@ -72,11 +72,9 @@ export default function TrendingPage(): JSX.Element {
             <S.FocusedTextContainer visible={barVisible}>
                 <S.FocusedText>{focusedText}</S.FocusedText>
             </S.FocusedTextContainer>
-            {!barVisible && (
-                <S.ToggleMessage>
-                    T 키를 눌러 텍스트를 크게 보세요!
-                </S.ToggleMessage>
-            )}
+            <S.ToggleMessage visible={!barVisible}>
+                T 키를 눌러 텍스트를 크게 보세요!
+            </S.ToggleMessage>
         </S.TrendingTopicContainer>
     );
 }
