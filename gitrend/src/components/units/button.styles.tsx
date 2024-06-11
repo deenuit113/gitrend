@@ -35,10 +35,10 @@ export const TrendingButton = styled.button<{ isActive: boolean; neighborLevel: 
     cursor: pointer;
     outline: ${({ isActive }) => (isActive ? '2px solid lightgray' : 'none')};
     flex: 1 0 40px;
-    max-width: 130px;
-    height: 110px;
+    max-width: 150px;
+    height: 75px;
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
     color: ${({ neighborLevel }) => getFontColor(neighborLevel)};
     border-radius: 10px;
     word-wrap: break-word; /* or overflow-wrap: break-word; */

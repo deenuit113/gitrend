@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TrendingItems from './items';
+import * as S from './page.styles';
 
 export default function TrendingPage(): JSX.Element {
     const [trendingItems, setTrendingItems] = useState<{ name: string, type: 'repo' | 'topic' }[]>([]);
@@ -49,9 +50,11 @@ export default function TrendingPage(): JSX.Element {
     }, []);
 
     return (
-        <div aria-label="github trending topics">
-            <h1>Trending Topics</h1>
-            <TrendingItems items={trendingItems} />
-        </div>
+        <S.TrendingTopicContainer aria-label="github trending topics">
+            <h1>Github Trending Topics</h1>
+            <S.ScrollContainer>
+                <TrendingItems items={trendingItems} />
+            </S.ScrollContainer>
+        </S.TrendingTopicContainer>
     );
 }
