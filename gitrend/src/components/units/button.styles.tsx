@@ -5,13 +5,11 @@ const getBackgroundColor = (neighborLevel: number) => {
         case 0:
             return '#ffff00'; // Focus된 버튼
         case 1:
-            return '#4444FF'; // 첫 번째 이웃 버튼
+            return '#5555FF'; // 첫 번째 이웃 버튼
         case 2:
-            return '#6666FF'; // 두 번째 이웃 버튼
+            return '#9999FF'; // 두 번째 이웃 버튼
         case 3:
-            return '#9999FF'; // 세 번째 이웃 버튼
-        case 4:
-            return '#CCCCFF'; // 네 번째 이웃 버튼
+            return '#CCCCFF'; // 세 번째 이웃 버튼
         default:
             return 'none'; // 기본 색상
     }

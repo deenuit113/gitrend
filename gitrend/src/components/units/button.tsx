@@ -66,6 +66,10 @@ export default function TrendingButton({
         }
     };
 
+    const handleMouseEnter = () => {
+        setCurrentIndex(rowIndex, colIndex);
+    };
+
     const speak = (text: string) => {
         const utterance = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(utterance);
@@ -78,6 +82,7 @@ export default function TrendingButton({
             ref={buttonRef}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
+            onMouseEnter={handleMouseEnter}
         >
             {name}
         </S.TrendingButton>
