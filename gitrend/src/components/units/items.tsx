@@ -13,8 +13,7 @@ interface TrendingItemsProps {
 export default function TrendingItems({ items, setFocusedText }: TrendingItemsProps): JSX.Element {
     const [currentRowIndex, setCurrentRowIndex] = useState(0);
     const [currentColIndex, setCurrentColIndex] = useState(0);
-    const [speechEnabled, setSpeechEnabled] = useState(true);
-    const debounceTimer = useRef<any>(null);
+    const [speechEnabled, setSpeechEnabled] = useState(false);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -32,14 +31,6 @@ export default function TrendingItems({ items, setFocusedText }: TrendingItemsPr
         setCurrentRowIndex(newRowIndex);
         setCurrentColIndex(newColIndex);
         setFocusedText(items[newRowIndex * itemsPerRow + newColIndex].name);
-
-        if (speechEnabled) {
-            clearTimeout(debounceTimer.current);
-            debounceTimer.current = setTimeout(() => {
-                const utterance = new SpeechSynthesisUtterance(items[newRowIndex * itemsPerRow + newColIndex].name);
-                window.speechSynthesis.speak(utterance);
-            }, 500);
-        }
     };
 
     // 2차원 배열로 변환 (예: 10개씩 한 행에 배치)
