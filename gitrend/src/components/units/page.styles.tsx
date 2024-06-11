@@ -13,6 +13,7 @@ export const TrendingTopicContainer = styled.div`
     align-items: center;
     background-color: #fffffa;
     box-sizing: border-box;
+    overflow-y: hidden;
 `;
 
 export const ScrollContainer = styled.div`
@@ -47,4 +48,42 @@ export const ScrollContainer = styled.div`
             width: 12px;
         }
     }
+`;
+
+export const FocusedTextContainer = styled.div<{ visible: boolean }>`
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: ${({ visible }) => (visible ? 'translateY(0)' : 'translateY(100%)')};
+    opacity: ${({ visible }) => (visible ? '1' : '0')};
+    pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
+    position: absolute;
+    bottom: 0;
+`;
+
+export const FocusedText = styled.div`
+    font-size: 3em;
+    font-weight: bolder;
+    color: #333;
+    text-align: center;
+`;
+
+export const ToggleMessage = styled.div`
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    transition: opacity 0.5s ease;
 `;

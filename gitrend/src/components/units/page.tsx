@@ -4,6 +4,8 @@ import * as S from './page.styles';
 
 export default function TrendingPage(): JSX.Element {
     const [trendingItems, setTrendingItems] = useState<{ name: string, type: 'repo' | 'topic' }[]>([]);
+    const [focusedText, setFocusedText] = useState<string>('');
+    const [barVisible, setBarVisible] = useState(true);
 
     useEffect(() => {
         const fetchTrendingData = async () => {
@@ -49,12 +51,32 @@ export default function TrendingPage(): JSX.Element {
         fetchTrendingData();
     }, []);
 
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 't') {
+                setBarVisible(prev => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
     return (
         <S.TrendingTopicContainer aria-label="github trending topics">
             <h1>Github Trending Topics</h1>
             <S.ScrollContainer>
-                <TrendingItems items={trendingItems} />
+                <TrendingItems items={trendingItems} setFocusedText={setFocusedText} />
             </S.ScrollContainer>
+            <S.FocusedTextContainer visible={barVisible}>
+                <S.FocusedText>{focusedText}</S.FocusedText>
+            </S.FocusedTextContainer>
+            {!barVisible && (
+                <S.ToggleMessage>
+                    T 키를 눌러 텍스트를 크게 보세요!
+                </S.ToggleMessage>
+            )}
         </S.TrendingTopicContainer>
     );
 }
