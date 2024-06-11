@@ -67,7 +67,7 @@ export const FocusedTextContainer = styled.div<{ visible: boolean }>`
 `;
 
 export const FocusedText = styled.div`
-    font-size: 2em;
+    font-size: 2.7em;
     font-weight: bolder;
     color: #333;
     text-align: center;
@@ -83,7 +83,7 @@ export const ToggleMessage = styled.div<{ visible: boolean }>`
     align-items: center;
     background-color: #f0f0f0;
     color: #333;
-    font-size: 1.2em;
+    font-size: 2.5em;
     font-weight: bold;
     text-align: center;
     transition: transform 0.5s ease, opacity 0.5s ease;

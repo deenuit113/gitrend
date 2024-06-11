@@ -36,10 +36,11 @@ export const TrendingButton = styled.button<{ isActive: boolean; neighborLevel: 
     outline: ${({ isActive }) => (isActive ? '2px solid lightgray' : 'none')};
     flex: 1 0 40px;
     max-width: 150px;
-    height: 75px;
+    height: 95px;
     text-align: center;
-    font-size: 20px;
+    font-size: 23px;
+    font-weight: bolder;
     color: ${({ neighborLevel }) => getFontColor(neighborLevel)};
-    border-radius: 10px;
+    border-radius: 5px;
     word-wrap: break-word; /* or overflow-wrap: break-word; */
 `;

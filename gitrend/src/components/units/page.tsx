@@ -5,7 +5,7 @@ import * as S from './page.styles';
 export default function TrendingPage(): JSX.Element {
     const [trendingItems, setTrendingItems] = useState<{ name: string, type: 'repo' | 'topic' }[]>([]);
     const [focusedText, setFocusedText] = useState<string>('');
-    const [barVisible, setBarVisible] = useState(true);
+    const [barVisible, setBarVisible] = useState(false);
 
     useEffect(() => {
         const fetchTrendingData = async () => {
