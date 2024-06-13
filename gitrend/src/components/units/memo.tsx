@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import * as S from './memo.styles'
 
-export default function Memo(): JSX.Element {
+interface MemoProps {
+    isVisible: boolean;
+    toggleVisibility: () => void;
+}
+
+export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.Element {
     const [content, setContent] = useState<string>('');
 
     useEffect(() => {
@@ -22,18 +28,14 @@ export default function Memo(): JSX.Element {
     };
 
     return (
-        <div style={{ position: 'fixed', top: '50px', left: '0', width: '300px', height: '400px', backgroundColor: 'white', border: '1px solid black', padding: '10px', zIndex: 1000 }}>
-            <textarea
-                value={content}
-                onChange={handleChange}
-                style={{ width: '100%', height: 'calc(100% - 40px)' }}
-            />
-            <button
-                onClick={handleClear}
-                style={{ position: 'absolute', bottom: '10px', right: '10px' }}
-            >
-                삭제
-            </button>
-        </div>
+        <>
+            <S.ToggleButton onClick={toggleVisibility} isMemoVisible={isVisible}>
+                {isVisible ? '< MEMO <' : '> MEMO >'}
+            </S.ToggleButton>
+            <S.MemoContainer isVisible={isVisible}>
+                <S.TextArea value={content} onChange={handleChange} />
+                <S.DeleteButton onClick={handleClear}>삭제</S.DeleteButton>
+            </S.MemoContainer>
+        </>
     );
 }
