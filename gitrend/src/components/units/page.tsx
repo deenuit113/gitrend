@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TrendingItems from './items';
+import Memo from './memo';
 import * as S from './page.styles';
 
 export default function TrendingPage(): JSX.Element {
     const [trendingItems, setTrendingItems] = useState<{ name: string, type: 'repo' | 'topic' }[]>([]);
     const [focusedText, setFocusedText] = useState<string>('');
     const [barVisible, setBarVisible] = useState(false);
+    const [memoVisible, setMemoVisible] = useState(false);
 
     useEffect(() => {
         const fetchTrendingData = async () => {
@@ -75,6 +77,10 @@ export default function TrendingPage(): JSX.Element {
             <S.ToggleMessage visible={!barVisible}>
                 T 키를 눌러 텍스트를 크게 보세요!
             </S.ToggleMessage>
+            <button onClick={() => setMemoVisible(prev => !prev)} style={{ position: 'fixed', top: '10px', left: '10px', zIndex: 1001 }}>
+                메모장 토글
+            </button>
+            {memoVisible && <Memo />}
         </S.TrendingTopicContainer>
     );
 }
