@@ -17,7 +17,7 @@ export default function TrendingItems({ items, setFocusedText }: TrendingItemsPr
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'm') {
+            if (e.key === 's') {
                 setSpeechEnabled(prev => !prev);
             }
         };

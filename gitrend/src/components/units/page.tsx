@@ -65,6 +65,18 @@ export default function TrendingPage(): JSX.Element {
         };
     }, []);
 
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'm') {
+                setMemoVisible(prev => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
     return (
         <S.TrendingTopicContainer aria-label="github trending topics">
             <h1>Github Trending Topics</h1>
