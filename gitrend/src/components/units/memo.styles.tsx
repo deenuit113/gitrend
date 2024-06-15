@@ -19,6 +19,15 @@ const slideOut = keyframes`
     }
 `;
 
+const blinkAnimation = keyframes`
+    0%, 100% {
+        background-color: lightgrey;
+    }
+    50% {
+        background-color: lightblue;
+    }
+`;
+
 export const MemoContainer = styled.div<{ isVisible: boolean }>`
     position: fixed;
     top: 10%;
@@ -33,7 +42,7 @@ export const MemoContainer = styled.div<{ isVisible: boolean }>`
 `;
 
 export const TextArea = styled.textarea`
-    font-family: Noto Sans Korean;
+    font-family: 'Noto Sans Korean', sans-serif;
     width: 100%;
     height: calc(100% - 40px);
     font-size: 25px;
@@ -41,13 +50,33 @@ export const TextArea = styled.textarea`
     resize: none;
 `;
 
-export const DeleteButton = styled.button`
-    font-family: Noto Sans Korean;
-    font-size: 15px;
-    font-weight: bold;
+export const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    width: 90%;
+`;
+
+export const DeleteButton = styled.button`
+    font-family: 'Noto Sans Korean', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background: lightgrey;
+`;
+
+export const SpeechButton = styled.button<{ isRecognizing: boolean }>`
+    margin-right: 15px;
+    font-family: 'Noto Sans Korean', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background: lightgrey;
+    animation: ${({ isRecognizing }) => (isRecognizing ? `${blinkAnimation} 1s infinite` : 'none')};
+    color: black;
 `;
 
 export const ToggleButton = styled.button<{ isMemoVisible: boolean }>`

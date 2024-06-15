@@ -13,7 +13,7 @@ interface MemoProps {
 export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.Element {
     const [content, setContent] = useState<string>('');
     const recognitionRef = useRef<InstanceType<SpeechRecognition> | null>(null);
-    const isRecognizingRef = useRef<boolean>(false);
+    const [isRecognizing, setIsRecognizing] = useState<boolean>(false);
 
     useEffect(() => {
         const savedContent = localStorage.getItem('memoContent');
@@ -42,25 +42,27 @@ export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.El
                 localStorage.setItem('memoContent', newContent);
                 return newContent;
             });
+            setIsRecognizing(false);
         };
 
         recognitionRef.current.onerror = (event: Event) => {
             console.error('Speech recognition error', (event as any).error);
-            isRecognizingRef.current = false;
+            setIsRecognizing(false);
         };
 
         recognitionRef.current.onend = () => {
-            isRecognizingRef.current = false;
+            setIsRecognizing(false);
         };
     }, []);
 
     const handleSpeechRecognition = () => {
         if (recognitionRef.current) {
-            if (isRecognizingRef.current) {
+            if (isRecognizing) {
                 recognitionRef.current.stop();
+                setIsRecognizing(false);
             } else {
                 recognitionRef.current.start();
-                isRecognizingRef.current = true;
+                setIsRecognizing(true);
             }
         }
     };
@@ -96,7 +98,15 @@ export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.El
             </S.ToggleButton>
             <S.MemoContainer isVisible={isVisible}>
                 <S.TextArea value={content} onChange={handleChange} />
-                <S.DeleteButton onClick={handleClear}>삭제</S.DeleteButton>
+                <S.ButtonContainer>
+                    <S.SpeechButton
+                        onClick={handleSpeechRecognition}
+                        isRecognizing={isRecognizing}
+                    >
+                        음성 인식
+                    </S.SpeechButton>
+                    <S.DeleteButton onClick={handleClear}>삭제</S.DeleteButton>
+                </S.ButtonContainer>
             </S.MemoContainer>
         </>
     );
