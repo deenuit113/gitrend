@@ -82,6 +82,9 @@ export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.El
         const handleKeyDown = (e: KeyboardEvent) => {
             if (isVisible && e.key === 'v') {
                 handleSpeechRecognition();
+            } 
+            else if (isVisible && e.key === 'd') {
+                handleClear();
             }
         };
 
