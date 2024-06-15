@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as S from './memo.styles';
+import { debounce } from 'lodash';
 
 //@ts-ignore
 type SpeechRecognition = typeof window.SpeechRecognition | typeof window.webkitSpeechRecognition;
