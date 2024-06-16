@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import TrendingItems from './items';
 import Memo from './memo';
 import * as S from './page.styles';
+import Switch from 'react-switch';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBullhorn, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 
 export default function TrendingPage(): JSX.Element {
     const [trendingItems, setTrendingItems] = useState<{ name: string, type: 'repo' | 'topic' }[]>([]);
@@ -9,6 +12,8 @@ export default function TrendingPage(): JSX.Element {
     const [barVisible, setBarVisible] = useState(false);
     const [isMemoVisible, setIsMemoVisible] = useState(false);
     const [isTextAreaFocused, setIsTextAreaFocused] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [speechEnabled, setSpeechEnabled] = useState(false);
 
     useEffect(() => {
         const fetchTrendingData = async () => {
@@ -61,6 +66,8 @@ export default function TrendingPage(): JSX.Element {
                     setBarVisible(prev => !prev);
                 } else if (e.key === 'm') {
                     setIsMemoVisible(prev => !prev);
+                } else if (e.key === 's') {
+                    setSpeechEnabled(prev => !prev);
                 }
             }
         };
@@ -75,13 +82,43 @@ export default function TrendingPage(): JSX.Element {
     };
 
     return (
-        <S.TrendingTopicContainer aria-label="github trending topics">
+        <S.TrendingTopicContainer 
+            aria-label="github trending topics" 
+            darkMode={isDarkMode}
+        >
+            <S.ToggleContainer>
+                <Switch
+                    onChange={() => setSpeechEnabled(prev => !prev)}
+                    checked={speechEnabled}
+                    offColor="#888"
+                    onColor="#0d6efd"
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    height={30}
+                    width={50}
+                    margin-right={20}
+                />
+                <FontAwesomeIcon icon={faBullhorn} style={{ marginLeft: '10px', marginRight: '20px', color: speechEnabled ? '#0d6efd' : '#888' }} />
+                <Switch
+                    onChange={() => setIsDarkMode(prev => !prev)}
+                    checked={isDarkMode}
+                    offColor="#888"
+                    onColor="#0d6efd"
+                    uncheckedIcon={<FontAwesomeIcon icon={faSun} style={{ color: 'yellow', padding: '5px' }} />}
+                    checkedIcon={<FontAwesomeIcon icon={faMoon} style={{ color: 'white', padding: '5px' }} />}
+                    height={30}
+                    width={50}
+                    className="react-switch-checkbox"
+                    style={{ marginLeft: '10px' }}
+                />
+            </S.ToggleContainer>
             <h1>Github Trending Topics</h1>
             <S.ScrollContainer>
                 <TrendingItems 
                     items={trendingItems}
                     setFocusedText={setFocusedText}
-                    isTextAreaFocused={isTextAreaFocused} 
+                    isTextAreaFocused={isTextAreaFocused}
+                    speechEnabled={speechEnabled}
                 />
             </S.ScrollContainer>
             <S.FocusedTextContainer visible={barVisible}>

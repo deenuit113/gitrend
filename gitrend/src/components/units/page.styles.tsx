@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const TrendingTopicContainer = styled.div`
+export const TrendingTopicContainer = styled.div<{ darkMode: boolean }>`
     position: absolute;
     width: 100%;
     height: 100%;
@@ -11,9 +11,10 @@ export const TrendingTopicContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fffffa;
+    background-color: ${({ darkMode }) => (darkMode ? '#333' : '#fffffa')};
     box-sizing: border-box;
     overflow-y: hidden;
+    color: ${({ darkMode }) => (darkMode ? '#fff' : '#000')};
 `;
 
 export const ScrollContainer = styled.div`
@@ -90,4 +91,16 @@ export const ToggleMessage = styled.div<{ visible: boolean }>`
     opacity: ${({ visible }) => (visible ? '1' : '0')};
     pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
     z-index: 0;
+`;
+
+export const ToggleContainer = styled.div`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+
+    .react-switch-checkbox {
+        display: none;
+    }
 `;
