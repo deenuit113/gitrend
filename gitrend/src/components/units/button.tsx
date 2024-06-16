@@ -77,6 +77,7 @@ export default function TrendingButton({
 
     return (
         <S.TrendingButton
+            aria-label={name}
             isActive={isActive}
             neighborLevel={neighborLevel}
             ref={buttonRef}
