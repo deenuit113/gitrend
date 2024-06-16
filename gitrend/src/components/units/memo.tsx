@@ -10,7 +10,7 @@ interface MemoProps {
     isVisible: boolean;
     toggleVisibility: () => void;
     isTextAreaFocused: boolean;
-    setIsTextAreaFocused: (focused: boolean) => void; // New prop
+    setIsTextAreaFocused: (focused: boolean) => void;
 }
 
 export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, setIsTextAreaFocused }: MemoProps): JSX.Element {
@@ -86,7 +86,7 @@ export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, s
             if (isVisible && !isTextAreaFocused) {
                 if (e.key === 'v') {
                     handleSpeechRecognition();
-                } else if (e.key === 'd') {
+                } else if (e.key === 'c') {
                     handleClear();
                 }
             }

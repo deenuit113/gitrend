@@ -68,6 +68,8 @@ export default function TrendingPage(): JSX.Element {
                     setIsMemoVisible(prev => !prev);
                 } else if (e.key === 's') {
                     setSpeechEnabled(prev => !prev);
+                } else if (e.key === 'd') {
+                    setIsDarkMode(prev => !prev);
                 }
             }
         };
