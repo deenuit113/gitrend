@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 
 const slideIn = keyframes`
     from {
@@ -16,15 +16,6 @@ const slideOut = keyframes`
     }
     to {
         transform: translateX(-100%);
-    }
-`;
-
-const blinkAnimation = keyframes`
-    0%, 100% {
-        background-color: lightgrey;
-    }
-    50% {
-        background-color: lightblue;
     }
 `;
 
@@ -75,7 +66,17 @@ export const SpeechButton = styled.button<{ isRecognizing: boolean }>`
     border: 1px solid grey;
     border-radius: 5px;
     background: lightgrey;
-    animation: ${({ isRecognizing }) => (isRecognizing ? `${blinkAnimation} 1s infinite` : 'none')};
+    ${({ isRecognizing }) => isRecognizing && css`
+        @keyframes blinkAnimation {
+            0%, 100% {
+                background-color: lightgrey;
+            }
+            50% {
+                background-color: #3366FF;
+            }
+        }
+        animation: blinkAnimation 1.5s infinite;
+    `}
     color: black;
 `;
 
