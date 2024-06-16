@@ -75,6 +75,13 @@ export default function TrendingButton({
         window.speechSynthesis.speak(utterance);
     };
 
+    const truncateText = (text: string, maxLength: number) => {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.slice(0, maxLength) + '...';
+    };
+
     return (
         <S.TrendingButton
             aria-label={name}
@@ -85,7 +92,7 @@ export default function TrendingButton({
             onKeyDown={handleKeyDown}
             onMouseEnter={handleMouseEnter}
         >
-            {name}
+            {truncateText(name, 20)}
         </S.TrendingButton>
     );
 }
