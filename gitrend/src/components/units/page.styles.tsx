@@ -11,11 +11,19 @@ export const TrendingTopicContainer = styled.div<{ darkMode: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     background-color: ${({ darkMode }) => (darkMode ? '#333' : '#fffffa')};
     box-sizing: border-box;
     overflow-y: hidden;
     color: ${({ darkMode }) => (darkMode ? '#fff' : '#000')};
 `;
+
+export const TrendingTopicTitle = styled.h1`
+    width: 80%;
+    height: 5%;
+    text-align: center;
+    align-items: center;
+`
 
 export const ScrollContainer = styled.div`
     width: 100%;
@@ -99,8 +107,4 @@ export const ToggleContainer = styled.div`
     right: 10px;
     display: flex;
     align-items: center;
-
-    .react-switch-checkbox {
-        display: none;
-    }
 `;

@@ -86,6 +86,7 @@ export default function TrendingPage(): JSX.Element {
             aria-label="github trending topics" 
             darkMode={isDarkMode}
         >
+            <S.TrendingTopicTitle>Github Trending Topics</S.TrendingTopicTitle>
             <S.ToggleContainer>
                 <Switch
                     onChange={() => setSpeechEnabled(prev => !prev)}
@@ -108,11 +109,8 @@ export default function TrendingPage(): JSX.Element {
                     checkedIcon={<FontAwesomeIcon icon={faMoon} style={{ color: 'white', padding: '5px' }} />}
                     height={30}
                     width={50}
-                    className="react-switch-checkbox"
-                    style={{ marginLeft: '10px' }}
                 />
             </S.ToggleContainer>
-            <h1>Github Trending Topics</h1>
             <S.ScrollContainer>
                 <TrendingItems 
                     items={trendingItems}
