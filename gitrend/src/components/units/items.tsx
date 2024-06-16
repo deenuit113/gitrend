@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import TrendingButton from './button';
 import * as S from './items.styles';
 import Switch from 'react-switch';
@@ -8,16 +8,17 @@ import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 interface TrendingItemsProps {
     items: { name: string, type: 'repo' | 'topic' }[];
     setFocusedText: (text: string) => void;
+    isTextAreaFocused: boolean; // Add this prop
 }
 
-export default function TrendingItems({ items, setFocusedText }: TrendingItemsProps): JSX.Element {
+export default function TrendingItems({ items, setFocusedText, isTextAreaFocused }: TrendingItemsProps): JSX.Element {
     const [currentRowIndex, setCurrentRowIndex] = useState(0);
     const [currentColIndex, setCurrentColIndex] = useState(0);
     const [speechEnabled, setSpeechEnabled] = useState(false);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 's') {
+            if (!isTextAreaFocused && e.key === 's') {
                 setSpeechEnabled(prev => !prev);
             }
         };
@@ -25,7 +26,7 @@ export default function TrendingItems({ items, setFocusedText }: TrendingItemsPr
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [isTextAreaFocused]);
 
     const updateIndex = (newRowIndex: number, newColIndex: number) => {
         setCurrentRowIndex(newRowIndex);
@@ -33,7 +34,6 @@ export default function TrendingItems({ items, setFocusedText }: TrendingItemsPr
         setFocusedText(items[newRowIndex * itemsPerRow + newColIndex].name);
     };
 
-    // 2차원 배열로 변환 (예: 10개씩 한 행에 배치)
     const rows = [];
     const itemsPerRow = 10; // 각 행에 10개씩 배치
 

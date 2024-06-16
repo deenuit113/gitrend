@@ -9,9 +9,11 @@ type SpeechRecognitionEvent = Event & { results: { [key: number]: { [key: number
 interface MemoProps {
     isVisible: boolean;
     toggleVisibility: () => void;
+    isTextAreaFocused: boolean;
+    setIsTextAreaFocused: (focused: boolean) => void; // New prop
 }
 
-export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.Element {
+export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, setIsTextAreaFocused }: MemoProps): JSX.Element {
     const [content, setContent] = useState<string>('');
     const recognitionRef = useRef<InstanceType<SpeechRecognition> | null>(null);
     const [isRecognizing, setIsRecognizing] = useState<boolean>(false);
@@ -81,11 +83,12 @@ export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.El
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (isVisible && e.key === 'v') {
-                handleSpeechRecognition();
-            } 
-            else if (isVisible && e.key === 'd') {
-                handleClear();
+            if (isVisible && !isTextAreaFocused) {
+                if (e.key === 'v') {
+                    handleSpeechRecognition();
+                } else if (e.key === 'd') {
+                    handleClear();
+                }
             }
         };
 
@@ -93,7 +96,15 @@ export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.El
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [isVisible]);
+    }, [isVisible, isTextAreaFocused]);
+
+    const handleTextAreaFocus = () => {
+        setIsTextAreaFocused(true);
+    };
+
+    const handleTextAreaBlur = () => {
+        setIsTextAreaFocused(false);
+    };
 
     return (
         <>
@@ -101,7 +112,12 @@ export default function Memo({ isVisible, toggleVisibility }: MemoProps): JSX.El
                 {isVisible ? '< MEMO <' : '> MEMO >'}
             </S.ToggleButton>
             <S.MemoContainer isVisible={isVisible}>
-                <S.TextArea value={content} onChange={handleChange} />
+                <S.TextArea 
+                    value={content} 
+                    onChange={handleChange} 
+                    onFocus={handleTextAreaFocus}
+                    onBlur={handleTextAreaBlur}
+                />
                 <S.ButtonContainer>
                     <S.SpeechButton
                         onClick={handleSpeechRecognition}

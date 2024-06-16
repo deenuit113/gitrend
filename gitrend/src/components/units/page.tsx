@@ -8,6 +8,7 @@ export default function TrendingPage(): JSX.Element {
     const [focusedText, setFocusedText] = useState<string>('');
     const [barVisible, setBarVisible] = useState(false);
     const [isMemoVisible, setIsMemoVisible] = useState(false);
+    const [isTextAreaFocused, setIsTextAreaFocused] = useState(false);
 
     useEffect(() => {
         const fetchTrendingData = async () => {
@@ -55,17 +56,19 @@ export default function TrendingPage(): JSX.Element {
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 't') {
-                setBarVisible(prev => !prev);
-            } else if (e.key === 'm') {
-                setIsMemoVisible(prev => !prev);
+            if (!isTextAreaFocused) {
+                if (e.key === 't') {
+                    setBarVisible(prev => !prev);
+                } else if (e.key === 'm') {
+                    setIsMemoVisible(prev => !prev);
+                }
             }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [isTextAreaFocused]);
 
     const toggleMemoVisibility = () => {
         setIsMemoVisible(prev => !prev);
@@ -75,7 +78,11 @@ export default function TrendingPage(): JSX.Element {
         <S.TrendingTopicContainer aria-label="github trending topics">
             <h1>Github Trending Topics</h1>
             <S.ScrollContainer>
-                <TrendingItems items={trendingItems} setFocusedText={setFocusedText} />
+                <TrendingItems 
+                    items={trendingItems}
+                    setFocusedText={setFocusedText}
+                    isTextAreaFocused={isTextAreaFocused} 
+                />
             </S.ScrollContainer>
             <S.FocusedTextContainer visible={barVisible}>
                 <S.FocusedText>{focusedText}</S.FocusedText>
@@ -83,7 +90,12 @@ export default function TrendingPage(): JSX.Element {
             <S.ToggleMessage visible={!barVisible}>
                 T 키를 눌러 텍스트를 크게 보세요!
             </S.ToggleMessage>
-            <Memo isVisible={isMemoVisible} toggleVisibility={toggleMemoVisibility} />
+            <Memo 
+                isVisible={isMemoVisible} 
+                toggleVisibility={toggleMemoVisibility}
+                isTextAreaFocused={isTextAreaFocused}
+                setIsTextAreaFocused={setIsTextAreaFocused} 
+            />
         </S.TrendingTopicContainer>
     );
 }
