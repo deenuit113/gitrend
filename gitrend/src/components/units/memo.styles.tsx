@@ -90,4 +90,5 @@ export const ToggleButton = styled.button<{ isMemoVisible: boolean }>`
     text-orientation: upright;
     font-size: 15px;
     font-weight: bolder;
+    cursor: pointer;
 `;
