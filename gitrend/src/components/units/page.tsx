@@ -100,6 +100,7 @@ export default function TrendingPage(): JSX.Element {
                     height={30}
                     width={50}
                     margin-right={20}
+                    aria-label="Speech on/off switch"
                 />
                 <FontAwesomeIcon icon={faBullhorn} style={{ marginLeft: '10px', marginRight: '20px', color: speechEnabled ? '#0d6efd' : '#888' }} />
                 <Switch
@@ -111,6 +112,7 @@ export default function TrendingPage(): JSX.Element {
                     checkedIcon={<FontAwesomeIcon icon={faMoon} style={{ color: 'white', padding: '5px' }} />}
                     height={30}
                     width={50}
+                    aria-label="DarkMode on/off switch"
                 />
             </S.ToggleContainer>
             <S.ScrollContainer>

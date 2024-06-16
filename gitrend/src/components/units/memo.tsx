@@ -117,6 +117,7 @@ export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, s
                     onChange={handleChange} 
                     onFocus={handleTextAreaFocus}
                     onBlur={handleTextAreaBlur}
+                    aria-label="Memo TextArea"
                 />
                 <S.ButtonContainer>
                     <S.SpeechButton
