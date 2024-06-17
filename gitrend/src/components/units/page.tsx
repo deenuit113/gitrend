@@ -123,17 +123,25 @@ export default function TrendingPage(): JSX.Element {
                     speechEnabled={speechEnabled}
                 />
             </S.ScrollContainer>
-            <S.FocusedTextContainer visible={barVisible}>
-                <S.FocusedText>{focusedText}</S.FocusedText>
+            <S.FocusedTextContainer
+                visible={barVisible}
+                darkMode={isDarkMode}
+                >
+                <S.FocusedText darkMode={isDarkMode}>
+                    {focusedText}</S.FocusedText>
             </S.FocusedTextContainer>
-            <S.ToggleMessage visible={!barVisible}>
+            <S.ToggleMessage 
+                visible={!barVisible}
+                darkMode={isDarkMode}
+            >
                 T 키를 눌러 텍스트를 크게 보세요!
             </S.ToggleMessage>
             <Memo 
                 isVisible={isMemoVisible} 
                 toggleVisibility={toggleMemoVisibility}
                 isTextAreaFocused={isTextAreaFocused}
-                setIsTextAreaFocused={setIsTextAreaFocused} 
+                setIsTextAreaFocused={setIsTextAreaFocused}
+                isDarkMode={isDarkMode}
             />
         </S.TrendingTopicContainer>
     );

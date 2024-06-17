@@ -11,9 +11,10 @@ interface MemoProps {
     toggleVisibility: () => void;
     isTextAreaFocused: boolean;
     setIsTextAreaFocused: (focused: boolean) => void;
+    isDarkMode: boolean;
 }
 
-export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, setIsTextAreaFocused }: MemoProps): JSX.Element {
+export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, setIsTextAreaFocused, isDarkMode }: MemoProps): JSX.Element {
     const [content, setContent] = useState<string>('');
     const recognitionRef = useRef<InstanceType<SpeechRecognition> | null>(null);
     const [isRecognizing, setIsRecognizing] = useState<boolean>(false);
@@ -108,15 +109,23 @@ export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, s
 
     return (
         <>
-            <S.ToggleButton onClick={toggleVisibility} isMemoVisible={isVisible}>
+            <S.ToggleButton
+                onClick={toggleVisibility}
+                isMemoVisible={isVisible}
+                darkMode={isDarkMode}
+                >
                 {isVisible ? '< MEMO <' : '> MEMO >'}
             </S.ToggleButton>
-            <S.MemoContainer isVisible={isVisible}>
+            <S.MemoContainer
+                isVisible={isVisible}
+                darkMode={isDarkMode}
+                >
                 <S.TextArea 
                     value={content} 
                     onChange={handleChange} 
                     onFocus={handleTextAreaFocus}
                     onBlur={handleTextAreaBlur}
+                    darkMode={isDarkMode}
                     aria-label="Memo TextArea"
                 />
                 <S.ButtonContainer>

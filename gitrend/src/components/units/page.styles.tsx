@@ -59,13 +59,13 @@ export const ScrollContainer = styled.div`
     }
 `;
 
-export const FocusedTextContainer = styled.div<{ visible: boolean }>`
+export const FocusedTextContainer = styled.div<{ visible: boolean, darkMode: boolean }>`
     width: 100%;
     height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: ${({ darkMode }) => (darkMode ? '#333' : '#f0f0f0')};
     transition: transform 0.5s ease, opacity 0.5s ease;
     transform: ${({ visible }) => (visible ? 'translateY(0)' : 'translateY(100%)')};
     opacity: ${({ visible }) => (visible ? '1' : '0')};
@@ -75,14 +75,14 @@ export const FocusedTextContainer = styled.div<{ visible: boolean }>`
     z-index: 1;
 `;
 
-export const FocusedText = styled.div`
+export const FocusedText = styled.div<{ darkMode: boolean }>`
     font-size: 2.7em;
     font-weight: bolder;
-    color: #333;
+    color: ${({ darkMode }) => (darkMode ? '#f0f0f0' : '#333')};
     text-align: center;
 `;
 
-export const ToggleMessage = styled.div<{ visible: boolean }>`
+export const ToggleMessage = styled.div<{ visible: boolean, darkMode: boolean }>`
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -90,8 +90,8 @@ export const ToggleMessage = styled.div<{ visible: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: ${({ darkMode }) => (darkMode ? '#333' : '#f0f0f0')};
+    color: ${({ darkMode }) => (darkMode ? '#f0f0f0' : '#333')};
     font-size: 2.5em;
     font-weight: bold;
     text-align: center;
