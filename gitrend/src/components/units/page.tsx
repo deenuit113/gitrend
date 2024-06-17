@@ -12,8 +12,25 @@ export default function TrendingPage(): JSX.Element {
     const [barVisible, setBarVisible] = useState(false);
     const [isMemoVisible, setIsMemoVisible] = useState(false);
     const [isTextAreaFocused, setIsTextAreaFocused] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const [speechEnabled, setSpeechEnabled] = useState(false);
+    const [speechEnabled, setSpeechEnabled] = useState<boolean>(false);
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedDarkMode = localStorage.getItem('DarkMode');
+            console.log('Loaded DarkMode from localStorage:', savedDarkMode);
+            if (savedDarkMode === 'night') {
+                setIsDarkMode(true);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('DarkMode', isDarkMode ? 'night' : 'day');
+            console.log('Saved DarkMode to localStorage:', isDarkMode ? 'night' : 'day');
+        }
+    }, [isDarkMode]);
 
     useEffect(() => {
         const fetchTrendingData = async () => {
@@ -36,7 +53,7 @@ export default function TrendingPage(): JSX.Element {
                 const frameworkTopicItems = frameworkTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
 
                 const libraryTopicResponse = await fetch('https://api.github.com/search/topics?q=library');
-                const libraryTopicData = await libraryTopicResponse.json();
+                const libraryTopicData = await languageTopicResponse.json();
                 const libraryTopicItems = libraryTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
 
                 const algoTopicResponse = await fetch('https://api.github.com/search/topics?q=algorithm');
