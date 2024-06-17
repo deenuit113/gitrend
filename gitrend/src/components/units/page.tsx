@@ -100,6 +100,10 @@ export default function TrendingPage(): JSX.Element {
         setIsMemoVisible(prev => !prev);
     };
 
+    const onClickFocusedText = (): void => {
+        setBarVisible(prev => !prev);
+    };
+
     return (
         <S.TrendingTopicContainer 
             aria-label="github trending topics" 
@@ -143,6 +147,7 @@ export default function TrendingPage(): JSX.Element {
             <S.FocusedTextContainer
                 visible={barVisible}
                 darkMode={isDarkMode}
+                onClick={onClickFocusedText}
                 >
                 <S.FocusedText darkMode={isDarkMode}>
                     {focusedText}</S.FocusedText>
@@ -150,6 +155,7 @@ export default function TrendingPage(): JSX.Element {
             <S.ToggleMessage 
                 visible={!barVisible}
                 darkMode={isDarkMode}
+                onClick={onClickFocusedText}
             >
                 T 키를 눌러 텍스트를 크게 보세요!
             </S.ToggleMessage>
