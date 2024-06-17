@@ -113,12 +113,15 @@ export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, s
                 onClick={toggleVisibility}
                 isMemoVisible={isVisible}
                 darkMode={isDarkMode}
+                aria-label="메모장을 꺼내고 넣을 수 있는 토글 버튼"
                 >
                 {isVisible ? '< MEMO <' : '> MEMO >'}
             </S.ToggleButton>
             <S.MemoContainer
                 isVisible={isVisible}
                 darkMode={isDarkMode}
+                aria-label="메모장 container"
+                role="container"
                 >
                 <S.TextArea 
                     value={content} 
@@ -126,16 +129,25 @@ export default function Memo({ isVisible, toggleVisibility, isTextAreaFocused, s
                     onFocus={handleTextAreaFocus}
                     onBlur={handleTextAreaBlur}
                     darkMode={isDarkMode}
-                    aria-label="Memo TextArea"
+                    aria-label="메모 입력창"
                 />
-                <S.ButtonContainer>
+                <S.ButtonContainer
+                    aria-label="메모장에 사용되는 버튼이 있는 container"
+                    role="container"
+                    >
                     <S.SpeechButton
                         onClick={handleSpeechRecognition}
                         isRecognizing={isRecognizing}
+                        aria-label="음성 인식 On/Off 버튼"
                     >
                         음성 인식
                     </S.SpeechButton>
-                    <S.DeleteButton onClick={handleClear}>삭제</S.DeleteButton>
+                    <S.DeleteButton
+                        onClick={handleClear}
+                        aria-label="메모장 내용 삭제 버튼"
+                    >
+                        삭제
+                    </S.DeleteButton>
                 </S.ButtonContainer>
             </S.MemoContainer>
         </>

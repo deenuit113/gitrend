@@ -106,7 +106,8 @@ export default function TrendingPage(): JSX.Element {
 
     return (
         <S.TrendingTopicContainer 
-            aria-label="github trending topics" 
+            aria-label="github trending topics"
+            role="container"
             darkMode={isDarkMode}
         >
             <S.TrendingTopicTitle>Github Trending Topics</S.TrendingTopicTitle>
@@ -121,7 +122,8 @@ export default function TrendingPage(): JSX.Element {
                     height={30}
                     width={50}
                     margin-right={20}
-                    aria-label="Speech on/off switch"
+                    aria-label="텍스트 음성변환 스위치"
+                    role="switch"
                 />
                 <FontAwesomeIcon icon={faBullhorn} style={{ marginLeft: '10px', marginRight: '20px', color: speechEnabled ? '#0d6efd' : '#888' }} />
                 <Switch
@@ -133,10 +135,14 @@ export default function TrendingPage(): JSX.Element {
                     checkedIcon={<FontAwesomeIcon icon={faMoon} style={{ color: 'white', padding: '5px' }} />}
                     height={30}
                     width={50}
-                    aria-label="DarkMode on/off switch"
+                    aria-label="다크모드 스위치"
+                    role="switch"
                 />
             </S.ToggleContainer>
-            <S.ScrollContainer>
+            <S.ScrollContainer
+                aria-label="해당 사이트로 이동할 수 있는 버튼 container"
+                role="container"
+                >
                 <TrendingItems 
                     items={trendingItems}
                     setFocusedText={setFocusedText}
@@ -148,14 +154,22 @@ export default function TrendingPage(): JSX.Element {
                 visible={barVisible}
                 darkMode={isDarkMode}
                 onClick={onClickFocusedText}
+                aria-label="확대된 글자가 출력되는 container"
+                role="container"
                 >
-                <S.FocusedText darkMode={isDarkMode}>
+                <S.FocusedText
+                    darkMode={isDarkMode}
+                    aria-label="확대된 글자"
+                    role="text"
+                    >
                     {focusedText}</S.FocusedText>
             </S.FocusedTextContainer>
             <S.ToggleMessage 
                 visible={!barVisible}
                 darkMode={isDarkMode}
                 onClick={onClickFocusedText}
+                aria-label="확대된 글자를 위한 도움말 container & text"
+                role="container & text"
             >
                 T 키를 눌러 텍스트를 크게 보세요!
             </S.ToggleMessage>

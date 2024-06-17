@@ -84,13 +84,13 @@ export default function TrendingButton({
 
     return (
         <S.TrendingButton
-            aria-label={name}
             isActive={isActive}
             neighborLevel={neighborLevel}
             ref={buttonRef}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
             onMouseEnter={handleMouseEnter}
+            aria-label= "해당 주제 관련 사이트로 이동하는 버튼"
         >
             {truncateText(name, 20)}
         </S.TrendingButton>
