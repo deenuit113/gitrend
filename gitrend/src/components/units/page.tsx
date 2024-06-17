@@ -53,7 +53,7 @@ export default function TrendingPage(): JSX.Element {
                 const frameworkTopicItems = frameworkTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
 
                 const libraryTopicResponse = await fetch('https://api.github.com/search/topics?q=library');
-                const libraryTopicData = await languageTopicResponse.json();
+                const libraryTopicData = await libraryTopicResponse.json();
                 const libraryTopicItems = libraryTopicData.items.map((item: any) => ({ name: item.name, type: 'topic' as const }));
 
                 const algoTopicResponse = await fetch('https://api.github.com/search/topics?q=algorithm');
