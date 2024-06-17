@@ -65,7 +65,7 @@ export const FocusedTextContainer = styled.div<{ visible: boolean, darkMode: boo
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({ darkMode }) => (darkMode ? '#333' : '#f0f0f0')};
+    background-color: ${({ darkMode }) => (darkMode ? '#222' : '#f0f0f0')};
     transition: transform 0.5s ease, opacity 0.5s ease;
     transform: ${({ visible }) => (visible ? 'translateY(0)' : 'translateY(100%)')};
     opacity: ${({ visible }) => (visible ? '1' : '0')};
@@ -90,7 +90,7 @@ export const ToggleMessage = styled.div<{ visible: boolean, darkMode: boolean }>
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({ darkMode }) => (darkMode ? '#333' : '#f0f0f0')};
+    background-color: ${({ darkMode }) => (darkMode ? '#222' : '#f0f0f0')};
     color: ${({ darkMode }) => (darkMode ? '#f0f0f0' : '#333')};
     font-size: 2.5em;
     font-weight: bold;
