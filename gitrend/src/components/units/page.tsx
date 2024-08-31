@@ -121,7 +121,6 @@ export default function TrendingPage(): JSX.Element {
                     checkedIcon={false}
                     height={30}
                     width={50}
-                    margin-right={20}
                     aria-label="텍스트 음성변환 스위치"
                     role="switch"
                 />

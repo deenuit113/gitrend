@@ -3,13 +3,13 @@ import styled from "@emotion/styled";
 const getBackgroundColor = (neighborLevel: number) => {
     switch (neighborLevel) {
         case 0:
-            return '#ffff00'; // Focus된 버튼
+            return '#ffffff'; // Focus된 버튼
         case 1:
-            return '#5555FF'; // 첫 번째 이웃 버튼
+            return '#5b5b5b'; // 첫 번째 이웃 버튼
         case 2:
-            return '#9999FF'; // 두 번째 이웃 버튼
+            return '#7b7b7b'; // 두 번째 이웃 버튼
         case 3:
-            return '#CCCCFF'; // 세 번째 이웃 버튼
+            return '#ababab'; // 세 번째 이웃 버튼
         default:
             return 'none'; // 기본 색상
     }
@@ -33,10 +33,10 @@ export const TrendingButton = styled.button<{ isActive: boolean; neighborLevel: 
     cursor: pointer;
     outline: ${({ isActive }) => (isActive ? '2px solid lightgray' : 'none')};
     flex: 1 0 40px;
-    max-width: 150px;
-    height: 95px;
+    max-width: 120px;
+    height: 72px;
     text-align: center;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: bolder;
     color: ${({ neighborLevel }) => getFontColor(neighborLevel)};
     border-radius: 5px;

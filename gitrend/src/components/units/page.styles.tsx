@@ -26,6 +26,8 @@ export const TrendingTopicTitle = styled.h1`
 `
 
 export const ScrollContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     width: 100%;
     height: 80%;
     overflow-y: auto;
@@ -103,7 +105,7 @@ export const ToggleMessage = styled.div<{ visible: boolean, darkMode: boolean }>
 
 export const ToggleContainer = styled.div`
     position: absolute;
-    top: 10px;
+    top: 30px;
     right: 10px;
     display: flex;
     align-items: center;
