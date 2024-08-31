@@ -39,6 +39,6 @@ export const TrendingButton = styled.button<{ isActive: boolean; neighborLevel: 
     font-size: 20px;
     font-weight: bolder;
     color: ${({ neighborLevel }) => getFontColor(neighborLevel)};
-    border-radius: 5px;
+    border-radius: 3px;
     word-wrap: break-word; /* or overflow-wrap: break-word; */
 `;

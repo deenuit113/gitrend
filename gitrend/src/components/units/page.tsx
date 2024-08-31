@@ -170,7 +170,7 @@ export default function TrendingPage(): JSX.Element {
                 aria-label="확대된 글자를 위한 도움말 container & text"
                 role="container & text"
             >
-                T 키를 눌러 텍스트를 크게 보세요!
+                Press T to magnify button text!
             </S.ToggleMessage>
             <Memo 
                 isVisible={isMemoVisible} 
